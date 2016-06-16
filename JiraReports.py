@@ -80,10 +80,10 @@ checks for time reporters who have not logged hours in the prior week
                 else:
                     loggers[name] = wlog.timeSpentSeconds
 
-    l = list(loggers.keys())
-    l.sort()
-    for name in l:
-        print("{0}: {1}".format(name, loggers[name] / 3600))
+#    l = list(loggers.keys())
+#    l.sort()
+#    for name in l:
+#        print("{0}: {1}".format(name, loggers[name] / 3600))
 
     print("\n--Missing--\n")
     for n in [name for name in gUsers if name not in loggers.keys()]:
