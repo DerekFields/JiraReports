@@ -1,8 +1,9 @@
 import jira
 import datetime
+import argparse
 
-gU = 'reports'
-gP = 'kNdq@4M16O'
+gU = ''
+gP = ''
 gServer = 'https://interactions.atlassian.net'
 gUsers = (
     "Andrej Ljolje",
@@ -39,6 +40,11 @@ gUsers = (
     "Yeon-Jun Kim",
 )
 
+def command_line():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-u','--user', required=True)
+    parser.add_argument('-p','--password', required=True)
+    return parser.parse_args()
 
 def jira_missing_time_report(interval):
     """
@@ -134,5 +140,9 @@ def jira_allocation_report():
                 print("\t{}\t{}\t{:,.2f}".format(assignee, len(i_list), minutes/3600))
 
 if __name__ == '__main__':
+    args = command_line()
+    gU = args.user
+    gP = args.password
+
     jira_missing_time_report(7)
     # jira_allocation_report()
