@@ -5,46 +5,20 @@ import argparse
 gU = ''
 gP = ''
 gServer = 'https://interactions.atlassian.net'
-gUsers = (
-    "Andrej Ljolje",
-    "Antonio Moreno Daniel",
-    "Alexander Shinkazh",
-    "Christopher Buchino",
-    "Charles Galles",
-    "Danilo Giulianelli",
-    "Evandro Gouvea",
-    "Ethan Selfridge",
-    "Hyuckchul Jung",
-    "Iker Arizmendi",
-    "Ilija Zeljkovic",
-    "John Chen",
-    "Jennifer McGovern",
-    "Larissa Lapshina",
-    "Mahnoosh Mehrabani Sharifabad",
-    "Mark Beutnagel",
-    "Minhua Chen",
-    "Michael Johnston",
-    "Melissa Macpherson",
-    "Narendra Gupta",
-    "Nick Ruiz",
-    "Patrick Haffner",
-    "Rathinavelu Chengalvarayan",
-    "Ryan Price",
-    "Sai Balakavi",
-    "Srinivas Bangalore",
-    "Svetlana Stoyanchev",
-    "Labeling Lab",
-    "Taniya Mishra",
-    "Thomas Okken",
-    "Vincent Goffin",
-    "Yeon-Jun Kim",
-)
+gUser_file = 'users.db'
+
 
 def command_line():
+    # TODO: Add help messages to text below
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u','--user', required=True)
-    parser.add_argument('-p','--password', required=True)
+    parser.add_argument('-u', '--user', required=True)
+    parser.add_argument('-p', '--password', required=True)
     return parser.parse_args()
+
+
+def get_users():
+    return open(gUser_file).readlines()
+
 
 def jira_missing_time_report(interval):
     """
@@ -85,8 +59,10 @@ checks for time reporters who have not logged hours in the prior week
 #    for name in l:
 #        print("{0}: {1}".format(name, loggers[name] / 3600))
 
+    user_list = [name.strip() for name in get_users()]
+
     print("\n--Missing--\n")
-    for n in [name for name in gUsers if name not in loggers.keys()]:
+    for n in [name for name in user_list if name not in loggers.keys()]:
         print(n)
     
     print("""
