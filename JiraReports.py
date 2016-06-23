@@ -9,10 +9,10 @@ gUser_file = 'users.db'
 
 
 def command_line():
-    # TODO: Add help messages to text below
+
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u', '--user', required=True)
-    parser.add_argument('-p', '--password', required=True)
+    parser.add_argument('-u', '--user', help='Jira User Name', required=True)
+    parser.add_argument('-p', '--password', help='Jira Password', required=True)
     return parser.parse_args()
 
 
