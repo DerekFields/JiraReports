@@ -5,40 +5,7 @@ import argparse
 gU = ''
 gP = ''
 gServer = 'https://interactions.atlassian.net'
-gUsers = (
-    "Andrej Ljolje",
-    "Antonio Moreno Daniel",
-    "Alexander Shinkazh",
-    "Christopher Buchino",
-    "Charles Galles",
-    "Danilo Giulianelli",
-    "Evandro Gouvea",
-    "Ethan Selfridge",
-    "Hyuckchul Jung",
-    "Iker Arizmendi",
-    "Ilija Zeljkovic",
-    "John Chen",
-    "Jennifer McGovern",
-    "Larissa Lapshina",
-    "Mahnoosh Mehrabani Sharifabad",
-    "Mark Beutnagel",
-    "Minhua Chen",
-    "Michael Johnston",
-    "Melissa Macpherson",
-    "Narendra Gupta",
-    "Nick Ruiz",
-    "Patrick Haffner",
-    "Rathinavelu Chengalvarayan",
-    "Ryan Price",
-    "Sai Balakavi",
-    "Srinivas Bangalore",
-    "Svetlana Stoyanchev",
-    "Labeling Lab",
-    "Taniya Mishra",
-    "Thomas Okken",
-    "Vincent Goffin",
-    "Yeon-Jun Kim",
-)
+gUser_file = 'users.db'
 
 
 def command_line():
@@ -48,6 +15,9 @@ def command_line():
     parser.add_argument('-m', '--missing', action='store_true', help='Print the missing work log report')
     parser.add_argument('-l', '--lift', action='store_true', help='Print the Lift work report')
     return parser.parse_args()
+
+def get_users():
+    return open(gUser_file).readlines()
 
 
 def missing_time_report(interval):
@@ -90,8 +60,10 @@ checks for time reporters who have not logged hours in the prior week
                     #    for name in l:
                     #        print("{0}: {1}".format(name, loggers[name] / 3600))
 
+    user_list = [name.strip() for name in get_users()]
+
     print("\n--Missing--\n")
-    for n in [name for name in gUsers if name not in loggers.keys()]:
+    for n in [name for name in user_list if name not in loggers.keys()]:
         print(n)
 
     print(
