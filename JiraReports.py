@@ -8,7 +8,6 @@ gServer = 'https://interactions.atlassian.net'
 gUser_file = 'users.db'
 
 
-
 def command_line():
     parser = argparse.ArgumentParser()
     parser.add_argument('-u', '--user', required=True)
@@ -17,9 +16,9 @@ def command_line():
     parser.add_argument('-l', '--lift', action='store_true', help='Print the Lift work report')
     return parser.parse_args()
 
-
 def get_users():
     return open(gUser_file).readlines()
+
 
 def missing_time_report(interval):
     """
@@ -56,10 +55,10 @@ checks for time reporters who have not logged hours in the prior week
                 else:
                     loggers[name] = wlog.timeSpentSeconds
 
-#    l = list(loggers.keys())
-#    l.sort()
-#    for name in l:
-#        print("{0}: {1}".format(name, loggers[name] / 3600))
+                    #    l = list(loggers.keys())
+                    #    l.sort()
+                    #    for name in l:
+                    #        print("{0}: {1}".format(name, loggers[name] / 3600))
 
     user_list = [name.strip() for name in get_users()]
 
@@ -116,7 +115,7 @@ def jira_allocation_report():
                 minutes = 0
                 for issue in i_list:
                     minutes += issue.fields.timeestimate
-                print("\t{}\t{}\t{:,.2f}".format(assignee, len(i_list), minutes/3600))
+                print("\t{}\t{}\t{:,.2f}".format(assignee, len(i_list), minutes / 3600))
 
 
 def lift_report(interval):
